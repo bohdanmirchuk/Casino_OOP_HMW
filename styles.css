@@ -1,0 +1,132 @@
+body {
+    background-color: #444;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+section {
+    color: #fff;
+    background-color: #555;
+    width: 300px;
+    padding: 10px;
+    font-family: Helvetica;
+    font-size: 20px;
+    border: 3px solid #68aec1;
+}
+select {
+  width: 80px;
+}
+select:hover {
+  cursor: pointer;
+}
+div.field span{
+  width: 200px;
+  display: inline-block;
+  text-align: right;
+  margin: 5px;
+}
+.start-form button {
+  margin-left: 216px;
+  margin-top: 5px;
+  background-color: #444;
+  font-size: 20px;
+  border: 1px solid #68aec1;
+  color: #fff;
+}
+
+.casino-section {
+  min-width: 725px;
+}
+.casinomoney-cnt{
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+.add-slot-cnt p {
+  margin: 0;
+  margin-left: 50px;
+  background-color: #68aec1;
+  width: 180px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 10px;
+  border: 2px solid #68aec1;
+}
+.add-slot-cnt p:hover {
+  cursor: pointer;
+  background-color: #fff;
+  color: #68aec1;
+}
+.add-slot-cnt p:active {
+  font-weight: bold;
+}
+.slots-cnt {
+  display:  flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+img {
+  width: 115px;
+  display: inline-block;
+  margin: 5px;
+}
+.img-cnt {
+  position: relative;
+  margin: 10px;
+}
+p.number-on-slot {
+  position: absolute;
+  top: 17px;
+  left:  46px;
+  color: #000;
+}
+p.play-button {
+  color: #ddd;
+  background-color: #ff0015;
+  border-radius: 10px;
+  border: 1px solid #ff0015;
+  text-align: center;
+  width: 60px;
+  position: absolute;
+  top: 60px;
+  left: -10px;
+}
+p.play-button:hover {
+  color:  #fff;
+  cursor: pointer;
+  border: 1px solid #aa000e;
+}
+p.slot-money-field {
+  color: #fff;
+  background-color: #111;
+  border-radius: 10px;
+  text-align: center;
+  width: 70px;
+  position: absolute;
+  top: -10px;
+  left: -20px;
+}
+p.delete-button {
+  color: #ddd;
+  background-color: #555;
+  border-radius: 10px;
+  border: 1px solid #000;
+  text-align: center;
+  width: 22px;
+  position: absolute;
+  top: -20px;
+  left: 90px;
+}
+p.delete-button:hover {
+  color:  #000;
+  cursor: pointer;
+  background-color: #fff;
+
+}
+.bet-cnt {
+  margin: 0px;
+}
+.bet-cnt select {
+  width: 53px;
+}

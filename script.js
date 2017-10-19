@@ -4,7 +4,7 @@ function Casino(SlotMachines, CasinoMoneyAmount){
   var machineMoney = parseInt(CasinoMoneyAmount/SlotMachines);
   var rest = CasinoMoneyAmount%machineMoney;
   this.Machines = {};
-  for (i=0; i<SlotMachines; i++){
+  for (i=0; i<this.SlotMachines; i++){
     this.Machines[i] = new SlotMachine(machineMoney+rest);
     rest=0;
   }
@@ -27,10 +27,24 @@ Casino.prototype.getTotalAmount = function(){
   console.log(totalAmount)
 
 }
+Casino.prototype.maxMachineAmount = function (){
+  var max = 0;
+  for (i=0; i<this.SlotMachines; i++){
+    if(this.Machines[i].MachineMoneyAmount > max){
+      max = this.Machines[i].MachineMoneyAmount;
+      }
+    }
+    return max;
+    console.log(max);
+}
+
+
 Casino.prototype.addNewMachine = function (){
-  console.log(parseInt(this.SlotMachines));
-  this.SlotMachines = parseInt(this.SlotMachines)+1;
-  console.log(parseInt(this.SlotMachines));
+  var Mnum = parseInt(this.SlotMachines);
+  Mnum += 1;
+  this.SlotMachines = Mnum;
+  console.log(Mnum);
+  this.Machines[Mnum-1] = new SlotMachine(casino.maxMachineAmount());
 }
 
 function createCasino(form){

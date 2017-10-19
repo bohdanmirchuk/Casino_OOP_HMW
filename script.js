@@ -18,6 +18,13 @@ function SlotMachine(MachineMoneyAmount){
   this.lucky = false;
 
 }
+Casino.prototype.getTotalAmount = function(){
+  var totalAmount = 0;
+  for (i=0; i<this.SlotMachines; i++){
+    totalAmount+=this.Machines;
+  }
+  console.log(totalAmount)
+}
 
 function createCasino(form){
   console.log(form[0].value, form[1].value)
@@ -26,7 +33,7 @@ function createCasino(form){
   playerMoney = casino.CasinoMoneyAmount;
   document.body.insertAdjacentHTML('beforeEnd', '<section class="casino-section">     <div class="casino-cnt casinomoney-cnt">    <h3>Money in casino - $<span id="money-in-casino">'+casino.CasinoMoneyAmount+'</span></h3><h3>Player&#39;s money - $<span>'+playerMoney+'</span></h3>   </div>  <div class="casino-cnt add-slot-cnt">   <p>Add new machine</p>  </div>  <div class="casino-cnt slots-cnt">  </div> </section>')
     for (var i=0; i<casino.SlotMachines; i++){
-    document.querySelector('.slots-cnt').insertAdjacentHTML('beforeEnd', '<div class="img-cnt">  <img src="img/slot-machine.png" alt="slot-machine">   <p class="number-on-slot">777</p>     <p class="play-button">PLAY</p>    <p class="slot-money-field">$<span>'+casino.Machines[i].MachineMoneyAmount+'</span></p>     <p class="delete-button">x</p>    <p class="bet-cnt">Bet <select name="bet">             <option value="1">$1</option>        <option value="5">$5</option>       <option value="10">$10</option>       <option value="50">$50</option>        <option value="100">$100</option>      <option value="500">$500</option>    </select></p>    </div>');
+    document.querySelector('.slots-cnt').insertAdjacentHTML('beforeEnd', '<div class="img-cnt">  <img src="img/slot-machine.png" alt="slot-machine">   <p class="number-on-slot">777</p>     <p class="play-button" onclick="casino.getTotalAmount()">PLAY</p>    <p class="slot-money-field">$<span>'+casino.Machines[i].MachineMoneyAmount+'</span></p>     <p class="delete-button">x</p>    <p class="bet-cnt">Bet <select name="bet">             <option value="1">$1</option>        <option value="5">$5</option>       <option value="10">$10</option>       <option value="50">$50</option>        <option value="100">$100</option>      <option value="500">$500</option>    </select></p>    </div>');
   }
     console.log(casino);
   return false;

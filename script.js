@@ -24,6 +24,9 @@ Casino.prototype.getTotalAmount = function(){
     totalAmount+=this.Machines[i].MachineMoneyAmount;
   }
   document.querySelector('#money-in-casino').innerHTML=totalAmount;
+  if ( totalAmount == 0){
+    alert("Wow... The Casino is a bankrupt now!..");
+  }
   // console.log("totalAmount", totalAmount);
 
 }

@@ -129,6 +129,7 @@ SlotMachine.prototype.Play = function(p, index){
       win = bet;
       casino.Machines[index].MachineMoneyAmount -= bet;
       if (casino.Machines[index].MachineMoneyAmount < 0){
+        win = win+casino.Machines[index].MachineMoneyAmount;
         casino.Machines[index].MachineMoneyAmount = 0;
       }
     }
@@ -138,6 +139,7 @@ SlotMachine.prototype.Play = function(p, index){
       win = bet;
       casino.Machines[index].MachineMoneyAmount -= bet;
       if (casino.Machines[index].MachineMoneyAmount < 0){
+        win = win+casino.Machines[index].MachineMoneyAmount;
         casino.Machines[index].MachineMoneyAmount = 0;
       }
     }

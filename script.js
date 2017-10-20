@@ -171,3 +171,5 @@ function createCasino(form){
   form.lastElementChild.setAttribute("disabled", "disabled");
   return false;
 }
+function reset(){
+  location.reload()}

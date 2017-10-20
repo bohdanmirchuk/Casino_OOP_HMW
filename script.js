@@ -43,7 +43,7 @@ Casino.prototype.maxMachineAmount = function (){
     return max;
 }
 
-
+  //method Add Machine
 Casino.prototype.addNewMachine = function (){
   var newMachineAmount = casino.maxMachineAmount()/2;
   var Mnum = parseInt(this.SlotMachines);
@@ -57,54 +57,68 @@ Casino.prototype.addNewMachine = function (){
 
    casino.getTotalAmount();
 }
-  
+  // method Play
 SlotMachine.prototype.Play = function(p, index){
   var win = 0;
   var div = p.parentElement;
   var bet = parseInt(div.querySelector('select').value);
 
-  if (casino.Machines[index].lucky == true){
-    var slotNumber = 777;
+  if (casino.Machines[index].MachineMoneyAmount == 0){
+    alert ("Sorry man, this machine is out of money(... Try to play on another one.")
+  }
+  else if(playerMoney >= bet){
+    if (casino.Machines[index].lucky == true){
+      var slotNumber = 777;
+    }
+    else{
+      var slotNumber = Math.floor((Math.random() * 900) + 100);
+    }
+    div.querySelector('.number-on-slot').innerHTML = slotNumber;
+    console.log("Slot Number", slotNumber);
+    console.log("bet", bet);
+    var arr = slotNumber.toString().split('');
+    if (slotNumber == 777){
+      console.log("777 win");
+      win = casino.Machines[index].MachineMoneyAmount;
+      casino.Machines[index].MachineMoneyAmount = 0;
+      alert("OMG! 777! You're the lucky one! You've just cleared this machine up!")
+    }
+    else if ((arr[0] == arr[1])&&(arr[1]==arr[2])){
+      console.log("5x win");
+      bet = bet * 5;    
+      win = bet;
+      casino.Machines[index].MachineMoneyAmount -= bet;
+      if (casino.Machines[index].MachineMoneyAmount < 0){
+        casino.Machines[index].MachineMoneyAmount = 0;
+      }
+    }
+    else if ((arr[0] == arr[1])||(arr[1]==arr[2])||(arr[0]==arr[2])){
+      console.log("2x win");
+      bet = bet * 2;
+      win = bet;
+      casino.Machines[index].MachineMoneyAmount -= bet;
+      if (casino.Machines[index].MachineMoneyAmount < 0){
+        casino.Machines[index].MachineMoneyAmount = 0;
+      }
+    }
+    else {
+      console.log("no win");  
+      win = -bet;
+      casino.Machines[index].MachineMoneyAmount += bet;
+      console.log(casino.Machines[index]);
+    }
+
+    div.querySelector('span.slot-money').innerHTML = casino.Machines[index].MachineMoneyAmount;
+    playerMoney = parseInt(playerMoney) + win;
+    document.querySelector('#player-money').innerHTML = playerMoney;
+    // console.log(div.parentNode.children);
+    // console.log(div.children.r);
+    // console.log(index);
   }
   else{
-  var slotNumber = Math.floor((Math.random() * 900) + 100);
-  }
-  div.querySelector('.number-on-slot').innerHTML = slotNumber;
-  console.log("Slot Number", slotNumber);
-  console.log("bet", bet);
-
-  var arr = slotNumber.toString().split('');
-  if (slotNumber == 777){
-    console.log("777 win");
-    win = casino.Machines[index].MachineMoneyAmount;
-    casino.Machines[index].MachineMoneyAmount = 0;
-  }
-  else if ((arr[0] == arr[1])&&(arr[1]==arr[2])){
-    console.log("5x win");
-    bet = bet * 5;    
-    win = bet;
-    casino.Machines[index].MachineMoneyAmount -= bet;
-    console.log(casino.Machines[index]);
-  }
-  else if ((arr[0] == arr[1])||(arr[1]==arr[2])||(arr[0]==arr[2])){
-    console.log("2x win");
-    bet = bet * 2;
-    win = bet;
-    casino.Machines[index].MachineMoneyAmount -= bet;
-  }
-  else {
-  console.log("no win");  
-  win = -bet;
-  casino.Machines[index].MachineMoneyAmount += bet;
-    console.log(casino.Machines[index]);
+    alert("Sorry man, you don't have enough money to play this bet");
   }
 
-  div.querySelector('span.slot-money').innerHTML = casino.Machines[index].MachineMoneyAmount;
-  playerMoney = parseInt(playerMoney) + win;
-  document.querySelector('#player-money').innerHTML = playerMoney;
-  // console.log(div.parentNode.children);
-  // console.log(div.children.r);
-  // console.log(index);
 }
 
 function createCasino(form){

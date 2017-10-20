@@ -1,3 +1,4 @@
+var deleted = 1;
 function Casino(SlotMachines, CasinoMoneyAmount){
   this.SlotMachines = SlotMachines;
   this.CasinoMoneyAmount = CasinoMoneyAmount;
@@ -60,12 +61,41 @@ Casino.prototype.addNewMachine = function (){
 
 // method Delete Machine
 SlotMachine.prototype.deleteMachine = function(p, index){
-  var div = p.parentElement;
+  if(deleted == casino.SlotMachines){
+    alert("It's the only machine, you cannot delete it");
+  }
+  else{
+    var div = p.parentElement;
   // console.log(cntArr.children[index]);
   console.log(index);
   // cntArr.removeChild(cntArr.children[index]);
   div.style.display = "none";
-  
+  var Mamount = casino.Machines[index].MachineMoneyAmount;
+  console.log("Mamount", Mamount);
+  var Mnum = casino.SlotMachines - deleted;
+  deleted+=1;
+  console.log("Mnum", Mnum);
+  var part = Math.floor(Mamount / Mnum);
+  console.log("part", part);
+  var surplus = Mamount - part * Mnum;
+  console.log("surplus", surplus)
+  for (i=0; i<casino.SlotMachines; i++){
+    if(i==index){
+      casino.Machines[index].MachineMoneyAmount = 0;
+      console.log("zero");
+      console.log(casino.Machines[index].MachineMoneyAmount);
+    }
+    else{
+      casino.Machines[i].MachineMoneyAmount += part+surplus;
+      surplus = 0;
+    }
+    if(div.parentElement.querySelectorAll('.img-cnt')[i].style.display == "none"){
+      casino.Machines[i].MachineMoneyAmount = 0;
+    }
+    div.parentElement.querySelectorAll('span.slot-money')[i].innerHTML = casino.Machines[i].MachineMoneyAmount;
+  }
+  }
+
 }
   // method Play
 SlotMachine.prototype.Play = function(p, index){
@@ -132,9 +162,9 @@ SlotMachine.prototype.Play = function(p, index){
 function createCasino(form){
   casino = new Casino(form[0].value, form[1].value);
   playerMoney = casino.CasinoMoneyAmount;
-  document.body.insertAdjacentHTML('beforeEnd', '<section class="casino-section">     <div class="casino-cnt casinomoney-cnt">    <h3>Money in casino - $<span id="money-in-casino">'+casino.CasinoMoneyAmount+'</span></h3><h3>Player&#39;s money - $<span id="player-money">'+playerMoney+'</span></h3>   </div>  <div class="casino-cnt add-slot-cnt" onclick="casino.addNewMachine()" >   <p>Add new machine</p>  </div>  <div class="casino-cnt slots-cnt">  </div> </section>')
+  document.body.insertAdjacentHTML('beforeEnd', '<section class="casino-section">     <div class="casino-cnt casinomoney-cnt">    <h3>Money in casino - $<span id="money-in-casino">'+casino.CasinoMoneyAmount+'</span></h3><h3>Player&#39;s money - $<span id="player-money">'+playerMoney+'</span></h3>   </div>  <div class="casino-cnt add-slot-cnt" onclick="casino.addNewMachine()" >   <p>Add new machine</p>  </div>  <div class="casino-cnt slots-cnt">  </div> </section>');
     for (var i=0; i<casino.SlotMachines; i++){
-    document.querySelector('.slots-cnt').insertAdjacentHTML('beforeEnd', '<div class="img-cnt">  <img src="img/slot-machine.png" alt="slot-machine">   <p class="number-on-slot">777</p>     <p class="play-button" onclick="casino.Machines['+i+'].Play(this, '+i+'), casino.getTotalAmount()">PLAY</p>    <p class="slot-money-field">$<span class="slot-money">'+casino.Machines[i].MachineMoneyAmount+'</span></p>     <p class="delete-button">x</p>    <p class="bet-cnt">Bet <select name="bet">       <option value="5">$5</option>        <option value="10">$10</option>       <option value="25">$25</option>       <option value="50">$50</option>        <option value="100">$100</option>      <option value="500">$500</option>    </select></p>    </div>');
+    document.querySelector('.slots-cnt').insertAdjacentHTML('beforeEnd', '<div class="img-cnt">  <img src="img/slot-machine.png" alt="slot-machine">   <p class="number-on-slot">777</p>     <p class="play-button" onclick="casino.Machines['+i+'].Play(this, '+i+'), casino.getTotalAmount()">PLAY</p>    <p class="slot-money-field">$<span class="slot-money">'+casino.Machines[i].MachineMoneyAmount+'</span></p>     <p class="delete-button" onclick="casino.Machines['+i+'].deleteMachine(this, '+i+')">x</p>    <p class="bet-cnt">Bet <select name="bet">       <option value="5">$5</option>        <option value="10">$10</option>       <option value="25">$25</option>       <option value="50">$50</option>        <option value="100">$100</option>      <option value="500">$500</option>    </select></p>    </div>');
   }
   form.lastElementChild.setAttribute("disabled", "disabled");
   return false;
